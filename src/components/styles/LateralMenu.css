@@ -1,0 +1,36 @@
+#divStyleMenu {
+	float: left;
+	background: #708090;
+	display: block;
+	width: 20%;
+	height: 100vh;
+}
+
+#divStyleMenu p{
+	padding: 10px 10px;
+	color: #F0F8FF;
+	font-family: verdana;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+#divStyleMenu p:hover{
+	background: #697580;
+	color: #FFFFFF;
+	border-left-style: solid;
+	border-left-color: #6495ED;
+}
+
+#pUserStyleMenu{
+	background: #697580;
+	color: #FFFFFF;
+	border-left-style: solid;
+	border-left-color: #6495ED;
+}
+
+/* The lateral menu is hidden on small screens */
+@media screen and (max-width: 700px) {
+	#divStyleMenu {
+		display: none;
+	}
+}

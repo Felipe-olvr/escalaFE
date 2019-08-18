@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/EscalaList.css'
 
 class EscalaList extends React.Component{
 	renderAllTableRows(){
@@ -12,9 +13,9 @@ class EscalaList extends React.Component{
 				<tr key={i}>
 				    <td>{item.user}</td>
 				    <td>{item.email}</td>
-				    <td>{item.company}</td>
-				    <td>{item.escalas}</td>
-				    <td>{item.status}</td>
+				    <td className="hiddenCols">{item.company}</td>
+				    <td className="hiddenCols">{item.escalas}</td>
+				    <td className="hiddenCols">{item.status}</td>
 				</tr>
 			)
 		})
@@ -23,14 +24,14 @@ class EscalaList extends React.Component{
 	render(){
 		return(
 			<div>
-			<table>
+			<table id="escalaTable">
 	  			<thead>
 		  			<tr>
 		  				<th>Usuário</th>
 		  				<th>Email</th>
-		  				<th>Company</th>
-		  				<th>Escalas</th>
-		  				<th>Status</th>
+		  				<th className="hiddenCols">Company</th>
+		  				<th className="hiddenCols">Escalas</th>
+		  				<th className="hiddenCols">Status</th>
 		  			</tr>
 	  			</thead>
 	  			<tbody>{this.renderAllTableRows()}</tbody>

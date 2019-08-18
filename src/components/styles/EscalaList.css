@@ -1,0 +1,25 @@
+
+#escalaTable {
+	background: #FFFFFF;
+	margin-bottom: 5%;
+	border-collapse: collapse;
+}
+
+#escalaTable td {
+	padding: 8px;
+}
+
+#escalaTable tr {
+	border-bottom: 1px solid #ddd;
+}
+
+#escalaTable tr:hover {
+	background-color: #ddd;
+}
+
+/* Some table's columns will be hidden on smaller screens */
+@media screen and (max-width: 600px){
+	.hiddenCols {
+		display: none;
+	}
+}

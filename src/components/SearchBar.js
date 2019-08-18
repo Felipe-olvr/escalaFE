@@ -1,5 +1,6 @@
 import React from 'react';
 import EscalaList from './EscalaList';
+import './styles/SearchBar.css';
 
 class SearchBar extends React.Component {
 	constructor(props) {
@@ -14,18 +15,6 @@ class SearchBar extends React.Component {
 	};
 
 	render(){
-		const divStyle = {
-			padding: '10px',
-			marginLeft: '6.25cm',
-			background: '#EEE'
-		};
-
-		const pStyle = {
-			color: '#1E90FF',
-			fontWeight: 'bold',
-			fontFamily: 'arial'
-		};
-
 		// Filters rows by user and email, it's case insensitive
 		const escala = this.props.data;
 		let filteredEscala = escala.filter(
@@ -34,11 +23,13 @@ class SearchBar extends React.Component {
 		);
 
 		return(
-			<div style={divStyle}>
-				<p style={pStyle}>Usuários</p>
-				<input type="text" size="75" placeholder="Pesquise um usuário" 
+			<div id="divStyleSearchBar">
+				<p id="pStyleSearchBar">Usuários</p>
+				<p id="inputTextStyleSearchBar">
+				<input type="text" size="50" placeholder="Pesquise um usuário" 
 					value={this.state.searchItem}
 					onChange={this.handleChange} />
+				</p>
 				<p></p>
 				<EscalaList escala={filteredEscala} all={this.props.data}/>
 			</div>

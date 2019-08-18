@@ -1,34 +1,14 @@
 import React from 'react';
+import './styles/LateralMenu.css';
 
 class LateralMenu extends React.Component{
-	getDivStyle = () => {
-		return {
-			float: 'left',
-			background: '#4682B4',
-			padding: '10px',
-			width: '25%',
-			height: '100vh',
-
-			// changing fonts...
-			color: '#F0F8FF',
-			fontFamily: "verdana",
-			fontWeight: 'bold',
-			fontSize: '12px'
-		}
-	}
-
-
+	
 	render(){
-		/*
-		const pStyle = {
-			backgroundColor: '#483D8B',
-		};
-		*/
-
+		
 		return(
-			<div style={this.getDivStyle()}>
+			<div id="divStyleMenu">
 				<p>COMPANIES</p>
-				<p>USUÁRIOS</p>
+				<p id="pUserStyleMenu">USUÁRIOS</p>
 				<p>RESETAR SENHA</p>
 				<p>SIMULAÇÃO</p>
 			</div>
@@ -37,14 +17,3 @@ class LateralMenu extends React.Component{
 }
 
 export default LateralMenu;
-
-/*
-<div style={this.getDivStyle()}>
-	<table>
-		<tr><td>COMPANIES</td></tr>
-		<tr><td style={pStyle}>USUÁRIOS</td></tr>
-		<tr><td>RESETAR SENHA</td></tr>
-		<tr><td>SIMULAÇÃO</td></tr>
-	</table>
-</div>
-*/

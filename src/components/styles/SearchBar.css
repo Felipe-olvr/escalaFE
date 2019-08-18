@@ -1,0 +1,27 @@
+#divStyleSearchBar {
+	background: #EEE;
+	padding-top: 10px;
+	width: 80%;
+	height: 100vh;
+	float: right;
+}
+
+#pStyleSearchBar {
+	padding-left: 10%;
+	color: #1E90FF;
+	font-weight: bold;
+	font-family: arial;
+}
+
+#inputTextStyleSearchBar {
+	padding-left: 10%;
+}
+
+/* Adjusts the layout on smaller screens */
+@media screen and (max-width: 700px){
+	#divStyleSearchBar{
+		float: none;
+		width: 100%;
+	}
+}
+
