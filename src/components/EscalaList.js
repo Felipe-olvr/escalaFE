@@ -9,11 +9,9 @@ class EscalaList extends React.Component{
 			escala: [],
 			currentPage: 1,
 	        rowsPerPage: 13,
-	        filteredEscalaLength: 0
 		};
 		this.handleClick = this.handleClick.bind(this);
 	}
-	
 
 	checkStatus(status){
 		if(status === 'ativo'){
@@ -52,6 +50,7 @@ class EscalaList extends React.Component{
         this.setState({
           currentPage: Number(e.target.id)
         });
+        
       }
 
 	renderTableRows(escala){
@@ -64,7 +63,8 @@ class EscalaList extends React.Component{
 				    <td className="hiddenCols">{item.company}</td>
 				    <td className="hiddenCols">{item.escalas}</td>
 				    {this.checkStatus(item.status)}
-				    <td><input type="button" value="Excluir" onClick={(e) => this.removeUser(item, e)}/></td>
+				    <td><input type="button" value="Excluir" style={{color: 'red'}} 
+				    onClick={(e) => this.removeUser(item, e)}/></td>
 				</tr>
 			)
 		})
@@ -88,12 +88,19 @@ class EscalaList extends React.Component{
 		for(let i = 1; i <= Math.ceil(escala.length / this.state.rowsPerPage); i++){
 			page.push(i);
 		}
+
+		let pageTabsClassName = "pageTabs";
+		
 		/* To show tabs at the end of the table */
 		const renderPageNum = page.map( (num) => {
+			(num === this.state.currentPage)?
+			pageTabsClassName = "pageTabsActive" : pageTabsClassName = "pageTabs"
 			return (
-				<div key={num} className="pageTabs">
-				<span id={num} onClick={this.handleClick}> {num} 
-				</span></div>
+				<div key={num} className={pageTabsClassName}>
+				<span id={num} onClick={this.handleClick}> 
+				 {num}
+				</span>
+				</div>
 			)
 		})
 
@@ -118,8 +125,10 @@ class EscalaList extends React.Component{
 	  			<tbody>{this.renderTableRows(currentRows)}</tbody>
   			</table>
 
-			<div>{renderPageNum}</div>
-
+  			{/* Just show if number of pages are bigger than 1 */}
+			{page.length > 1 &&
+				<div>{renderPageNum}</div>
+			}
 			</div>
 		)
 	}

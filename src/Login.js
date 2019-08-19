@@ -98,9 +98,12 @@ class Login extends React.Component {
       		return ( item['removed'] = 'false' )
     	});
 
-    	// Uncomment below to test with big number of rows
     	/*
-    	const test = new Array(20)
+    	 Uncomment the multi-line comment below to test with a bigger quantity
+    	 of rows and replace escala={this.state.escala} by escala={test}
+    	*/
+    	/*
+    	const test = new Array(35)
     	.fill({company: "Escala", created_at: "2019-08-15 17:33:54", 
     		email: "lippe252@gmail.com",
 			escalas: "0",

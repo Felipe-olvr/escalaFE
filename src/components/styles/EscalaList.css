@@ -52,17 +52,27 @@
   	float: left;
   	border: solid 1px #ddd;
   	cursor: pointer;
-  	margin-left:auto; 
-    margin-right:auto;
 }
 
 .pageTabs span {
 	padding: 10px;
 }
 
-.pageTabs span:hover {
+.pageTabs span:hover{
 	background: #ddd;
-	border: solid 1px #FFF; 
+	border: solid 1px #FFF;
+}
+
+.pageTabsActive {
+  	display: flex;
+  	float: left;
+  	cursor: pointer;
+}
+
+.pageTabsActive span{
+	background: #ddd;
+	border: solid 1px #FFF;
+	padding: 10px;
 }
 
 /* Some table's columns will be hidden on smaller screens */
