@@ -2,9 +2,18 @@ import React from 'react';
 import './styles/EscalaList.css';
 
 class EscalaList extends React.Component{
-	state = {
-		escala: []
-	};
+	constructor(props){
+		super(props);
+
+		this.state = {
+			escala: [],
+			currentPage: 1,
+	        rowsPerPage: 2,
+	        filteredEscalaLength: 0
+		};
+		this.handleClick = this.handleClick.bind(this);
+	}
+	
 
 	checkStatus(status){
 		if(status === 'ativo'){
@@ -33,13 +42,21 @@ class EscalaList extends React.Component{
 			const escalaCopy = this.state.escala.filter(
 				(item) => item.removed === 'true');
 			this.setState({ escala: escalaCopy });
-			console.log(item.user + " was removed!");
+			console.log(item.user + " foi removido(a)!");
 		}
 		
 	}
 
+	handleClick(e) {
+        this.setState({
+          currentPage: Number(e.target.id)
+        });
+      }
+
 	renderTableRows(){
 		let escala = this.props.escala;
+
+		/* If escala is empty, all the rows will be shown on the screen */
 		if(!this.props.escala.length > 0){
 			escala = this.props.all;
 		}
@@ -47,6 +64,11 @@ class EscalaList extends React.Component{
 		escala = escala.filter( (item) => 
 			item.removed === 'false'
 		)
+
+		/* Calculating the first and last element of each page */
+		const indexOfLastItem = this.state.currentPage * this.state.rowsPerPage;
+		const indexOfFirstItem = indexOfLastItem - this.state.rowsPerPage;
+		escala = escala.slice(indexOfFirstItem, indexOfLastItem);
 
 		return escala.map((item, i) => {
 			return(
@@ -60,9 +82,24 @@ class EscalaList extends React.Component{
 				</tr>
 			)
 		})
+
 	}
 
 	render(){
+		//
+		const page = [];
+		for(let i = 1; i <= Math.ceil(this.state.filteredEscalaLength / this.state.rowsPerPage); i++){
+			page.push(i);
+		}
+		console.log(Math.ceil(3/2));
+
+		//
+		const renderPageNum = page.map( (num) => {
+			return (
+				<li key={num} onClick={this.handleClickPage} >{num}</li>
+			)
+		})
+
 		return(
 			<div>
 			<table id="escalaTable">
@@ -78,6 +115,11 @@ class EscalaList extends React.Component{
 	  			</thead>
 	  			<tbody>{this.renderTableRows()}</tbody>
   			</table>
+
+  			<div>
+				<ul>{renderPageNum}</ul>
+			</div>
+
 			</div>
 		)
 	}

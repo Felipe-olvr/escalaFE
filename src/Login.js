@@ -1,49 +1,29 @@
 import React from 'react';
 import LateralMenu from './components/LateralMenu';
 import SearchBar from './components/SearchBar';
+import LoginScreen from './LoginScreen';
+import { FiLogOut } from "react-icons/fi";
 
-const LoggedIn = (escala) => {
+const LoggedIn = ({escala, username, signOut}) => {
+	
+	const headBarStyle = {
+		textAlign: 'right',
+		background: '#000080',
+		color: '#FFFFFF',
+		padding: '12px'
+	}
+
 	return (
 		<div>
+			<div style={headBarStyle}>
+			{username} <span onClick={signOut} style={{cursor:'pointer'}}><FiLogOut /></span>
+			</div>
+	  		
 	  		<LateralMenu />
+	        
 	        <SearchBar data={escala}/>
 	  	</div>
 	);
-}
-
-class LoginScreen extends React.Component {
-
-	handleLogin(e){
-		e.preventDefault();
-		let username = this.refs.username.value;
-		let password = this.refs.password.value;
-		this.props.onSignIn(username, password);
-	}
-
-
-	render(){
-		const divStyleLogin = {
-			margin: '20px',
-			borderStyle: 'solid',
-			borderWidth: '1px',
-			padding: '10px',
-			background: '#EEE',
-			width: '40%'
-		};
-
-		return (
-			<div style={divStyleLogin}>
-			<h1>Escala Front-End App</h1>
-			<form onSubmit={this.handleLogin.bind(this)}>
-				<p><b>Usuário: </b>
-				<input type="text" ref="username" size="30" placeholder=""/></p>
-				<p><b>Senha: </b>
-				<input type="password" ref="password" size="30" placeholder=""/></p>
-				<p><input type="submit" value="Login"/></p>
-			</form>
-			</div>
-		);
-	}
 }
 
 class Login extends React.Component {
@@ -52,9 +32,11 @@ class Login extends React.Component {
 
 		this.state = {
 			escala: [],
-			username: [], /* all the usernames are active emails from escala */
-			password: "123",
-			isLogged: false
+			usernames: [], /* all the usernames are active emails from escala */
+			users: [],
+			passwords: "123",
+			isLogged: "false",
+			username: ""
 		};
 		
 	}
@@ -65,9 +47,14 @@ class Login extends React.Component {
       		.then(response => response.json())
       		.then(escala => this.setState({ escala }))
       		.then(username => this.setState({
-      			username: this.state.escala
+      			usernames: this.state.escala
       			.filter( (item) => (item.status === 'ativo'))
       			.map( (item, i) => { return item.email; })
+      		}))
+      		.then(users => this.setState({
+      			users: this.state.escala
+      			.filter( (item) => (item.status === 'ativo'))
+      			.map( (item, i) => { return item.user; })
       		}))
       		.catch(e => {
         		console.log(e);
@@ -78,17 +65,27 @@ class Login extends React.Component {
 
   	signIn(username, password) {
   		let success = false;
-  		for(let i = 0; i < this.state.username.length; i++){
-  			if((username === this.state.username[i]) && 
-  				(password === this.state.password))
+  		for(let i = 0; i < this.state.usernames.length; i++){
+  			if((username === this.state.usernames[i]) && 
+  				(password === this.state.passwords))
   			{
   				console.log("Logado!");
   				success = true;
-  				this.setState({ isLogged: true});
+  				this.setState({ 
+  					isLogged: "true",
+  					username: this.state.users[i]
+  				});
   			}
   		}
   		if(success === false) 
   			console.log("Usuário ou senha errada!");
+  	}
+
+  	signOut(){
+  		this.setState({
+  			isLogged: "false",
+  			username: ""
+  		})
   	}
 
 	render(){
@@ -102,16 +99,16 @@ class Login extends React.Component {
 		return (
 			<div>
 			{
-				(this.state.isLogged) ? 
-				LoggedIn(this.state.escala)
+				(this.state.isLogged === "true") ?
+				<LoggedIn escala={this.state.escala} username={this.state.username}
+				signOut={this.signOut.bind(this)} />
 				:
-				<LoginScreen onSignIn={this.signIn.bind(this)} data={this.state.escala}/>
+				<LoginScreen 
+					onSignIn={this.signIn.bind(this)} data={this.state.escala}/>
 			}
 			</div>
 		)
-
 	}
-
 }
 
 export default Login;
