@@ -38,6 +38,7 @@ class Login extends React.Component {
 			isLogged: "false",
 			username: ""
 		};
+
 		
 	}
 
@@ -89,12 +90,26 @@ class Login extends React.Component {
   	}
 
 	render(){
+
 		/* Adding the attribute 'removed' to json object before sending it to
 	    others componentes */
     	const escala = this.state.escala;
     	escala.map( (item, i) => {
       		return ( item['removed'] = 'false' )
     	});
+
+    	// Uncomment below to test with big number of rows
+    	/*
+    	const test = new Array(20)
+    	.fill({company: "Escala", created_at: "2019-08-15 17:33:54", 
+    		email: "lippe252@gmail.com",
+			escalas: "0",
+			id: 1,
+			removed: "false",
+			status: "ativo",
+			updated_at: "2019-08-15 17:33:54",
+			user: "Felipe Oliveira"});
+		*/
 
 		return (
 			<div>

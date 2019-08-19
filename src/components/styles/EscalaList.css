@@ -1,7 +1,7 @@
 
 #escalaTable {
 	background: #FFFFFF;
-	margin-bottom: 5%;
+	margin-bottom: 2%;
 
 	margin-left:auto; 
     margin-right:auto;
@@ -44,6 +44,25 @@
     height: 8px;
     background: #32CD32;
     border-radius: 50%
+}
+
+.pageTabs {
+	background: white;
+  	display: flex;
+  	float: left;
+  	border: solid 1px #ddd;
+  	cursor: pointer;
+  	margin-left:auto; 
+    margin-right:auto;
+}
+
+.pageTabs span {
+	padding: 10px;
+}
+
+.pageTabs span:hover {
+	background: #ddd;
+	border: solid 1px #FFF; 
 }
 
 /* Some table's columns will be hidden on smaller screens */

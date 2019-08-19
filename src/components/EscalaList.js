@@ -8,7 +8,7 @@ class EscalaList extends React.Component{
 		this.state = {
 			escala: [],
 			currentPage: 1,
-	        rowsPerPage: 2,
+	        rowsPerPage: 13,
 	        filteredEscalaLength: 0
 		};
 		this.handleClick = this.handleClick.bind(this);
@@ -48,28 +48,14 @@ class EscalaList extends React.Component{
 	}
 
 	handleClick(e) {
+		/* Changing to the current page after a mouse click */
         this.setState({
           currentPage: Number(e.target.id)
         });
       }
 
-	renderTableRows(){
-		let escala = this.props.escala;
-
-		/* If escala is empty, all the rows will be shown on the screen */
-		if(!this.props.escala.length > 0){
-			escala = this.props.all;
-		}
-
-		escala = escala.filter( (item) => 
-			item.removed === 'false'
-		)
-
-		/* Calculating the first and last element of each page */
-		const indexOfLastItem = this.state.currentPage * this.state.rowsPerPage;
-		const indexOfFirstItem = indexOfLastItem - this.state.rowsPerPage;
-		escala = escala.slice(indexOfFirstItem, indexOfLastItem);
-
+	renderTableRows(escala){
+		
 		return escala.map((item, i) => {
 			return(
 				<tr key={i}>
@@ -86,19 +72,35 @@ class EscalaList extends React.Component{
 	}
 
 	render(){
-		//
+		let escala = this.props.escala;
+
+		/* If escala is empty, all the rows will be shown on the screen */
+		if(!this.props.escala.length > 0){
+			escala = this.props.all;
+		}
+
+		escala = escala.filter( (item) => 
+			item.removed === 'false'
+		)
+
+		/* For the pagination */
 		const page = [];
-		for(let i = 1; i <= Math.ceil(this.state.filteredEscalaLength / this.state.rowsPerPage); i++){
+		for(let i = 1; i <= Math.ceil(escala.length / this.state.rowsPerPage); i++){
 			page.push(i);
 		}
-		console.log(Math.ceil(3/2));
-
-		//
+		/* To show tabs at the end of the table */
 		const renderPageNum = page.map( (num) => {
 			return (
-				<li key={num} onClick={this.handleClickPage} >{num}</li>
+				<div key={num} className="pageTabs">
+				<span id={num} onClick={this.handleClick}> {num} 
+				</span></div>
 			)
 		})
+
+		/* Calculating the first and last element of each page */
+		const indexOfLastItem = this.state.currentPage * this.state.rowsPerPage;
+		const indexOfFirstItem = indexOfLastItem - this.state.rowsPerPage;
+		const currentRows = escala.slice(indexOfFirstItem, indexOfLastItem);
 
 		return(
 			<div>
@@ -113,12 +115,10 @@ class EscalaList extends React.Component{
 		  				<th></th>
 		  			</tr>
 	  			</thead>
-	  			<tbody>{this.renderTableRows()}</tbody>
+	  			<tbody>{this.renderTableRows(currentRows)}</tbody>
   			</table>
 
-  			<div>
-				<ul>{renderPageNum}</ul>
-			</div>
+			<div>{renderPageNum}</div>
 
 			</div>
 		)
