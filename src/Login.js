@@ -70,12 +70,12 @@ class Login extends React.Component {
   			if((username === this.state.usernames[i]) && 
   				(password === this.state.passwords))
   			{
-  				console.log("Logado!");
   				success = true;
   				this.setState({ 
   					isLogged: "true",
   					username: this.state.users[i]
   				});
+  				console.log(this.state.users[i] + " está logado!");
   			}
   		}
   		if(success === false) 
@@ -87,6 +87,7 @@ class Login extends React.Component {
   			isLogged: "false",
   			username: ""
   		})
+  		console.log(this.state.username + " saiu do sistema.");
   	}
 
 	render(){

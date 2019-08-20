@@ -15,15 +15,23 @@ class SearchBar extends React.Component {
 	};
 
 	render(){
-		/* Filtering rows by user and email,
-		   the attribute 'removed' must be 'false'. 
-		   It's case insensitive
-		*/
 		const escala = this.props.data;
 
+		/* teste
 		let filteredEscala = escala.filter(
 			(item) => ((item.user.toLowerCase() === this.state.searchItem.toLowerCase()) ||
 			 (item.email === this.state.searchItem)) &&
+			 (item.removed === 'false')
+		);
+		*/
+
+		/* Filtering rows by user and email,
+		   the attribute 'removed' must be 'false'. 
+		   It's case insensitive.
+		*/
+		let filteredEscala = escala.filter(
+			(item) => (((item.user.toLowerCase().indexOf(this.state.searchItem.toLowerCase())) !== -1) ||
+			 (item.email.toLowerCase().indexOf(this.state.searchItem.toLowerCase()) !== -1)) &&
 			 (item.removed === 'false')
 		);
 
